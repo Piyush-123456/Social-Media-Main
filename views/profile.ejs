@@ -1,0 +1,23 @@
+<%-include("partials/header")%>
+<%-include("partials/nav")%>
+
+<h2>
+    Profile Page
+    </h2>   
+
+
+
+    <div>
+       <% post.forEach((singlepost)=>{%>
+            <div>
+                <img src="<%=singlepost.image.thumbnailUrl%>" alt="">
+                <a href="/post/likes/<%=singlepost._id%>">
+                    Like 
+                    <%=singlepost.likes.length%>
+                </a>
+            </div>
+       <% })%>
+        
+    </div>
+
+<%-include("partials/footer")%>

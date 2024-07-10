@@ -1,0 +1,103 @@
+<nav
+  style="height: 60px; width: 100%;  display: flex; align-items: center; justify-content: space-between; padding: 0 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <!-- <div style="display: flex; align-items: center;"></div> -->
+  <h1 style=" color : black;font-size: 1.5rem;  font-family: cursive;  color : #E72E1E">
+    &lt;/&gt;SparkWave</h1>
+
+  <% if (user) { %>
+    <div style="display: flex; align-items: center; justify-content: center; flex: 1; gap: 20px;">
+      <form
+        style="display: flex; align-items: center; justify-content: center; width: 100%; padding:0; width:fit-content">
+        <input type="text" placeholder="Search..."
+          style="width: 300px; height: 40px; padding: 0 10px; border: 1px solid #ccc; border-radius: 20px 0 0 20px; outline: none; font-size: 16px;">
+        <button
+          style="height: 40px; padding: 0 20px; background-color: #E72E1E; border: none; border-radius: 0 20px 20px 0; color: white; font-size: 16px; cursor: pointer; transition: background-color 0.3s;"
+          onmouseover="this.style.backgroundColor='#E72E1E'" onmouseout="this.style.backgroundColor='#E72E1E'">
+          Search
+        </button>
+      </form>
+      <a href="/user/profile"
+        style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
+        onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
+        <i class="ri-home-line" style="font-size: 25px;"></i> Home
+      </a>
+
+      <!-- <a href="/post/create" style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;" onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
+          Create Post
+        </a> -->
+
+      <a href="/user/friends"
+        style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
+        onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
+        <i class="ri-group-line" style="font-size: 20px;"></i>
+        Explore Community
+      </a>
+      <a href="/user/chat"
+        style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
+        onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
+        <i class="ri-chat-3-line" style="font-size: 20px;" ></i>
+        Chats
+      </a>
+    </div>
+
+    <div></div>
+
+    <div style="position: relative; display: inline-block; margin-left: auto;">
+      <a href="#" style="text-decoration: none; color: black; display: flex; align-items: center;"
+        onclick="toggleDropdown(event)" class="dropdown-toggle">
+        <img src="<%= user.avatar.thumbnailUrl %>" alt="User Avatar"
+          style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+        <span style="font-size: 16px;">
+          <%=user.fullname%>
+        </span>
+      </a>
+      <div id="dropdown-content"
+        style="display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); z-index: 1; border-radius: 5px;">
+        <a href="/user/settings"
+          style="color: black; padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s;"
+          onmouseover="this.style.backgroundColor='#e0e0e0'"
+          onmouseout="this.style.backgroundColor='#f9f9f9'">Profile</a>
+        <a href="#"
+          style="color: black; padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s;"
+          onmouseover="this.style.backgroundColor='#e0e0e0'"
+          onmouseout="this.style.backgroundColor='#f9f9f9'">Settings</a>
+        <a href="/user/logout"
+          style="color: black; padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s;"
+          onmouseover="this.style.backgroundColor='#e0e0e0'"
+          onmouseout="this.style.backgroundColor='#f9f9f9'">Logout</a>
+      </div>
+    </div>
+    <% } else { %>
+      <a href="/" style="text-decoration: none; color: white; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
+        onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">
+        Home
+      </a>
+
+      <a href="/login"
+        style="text-decoration: none; color: white; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
+        onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">
+        Login
+      </a>
+      <% } %>
+</nav>
+
+<script>
+  function toggleDropdown(event) {
+    event.preventDefault();
+    event.stopPropagation(); // Prevent event from bubbling up to window
+    var dropdown = document.getElementById('dropdown-content');
+    if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+      dropdown.style.display = 'block';
+    } else {
+      dropdown.style.display = 'none';
+    }
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function (event) {
+    var dropdown = document.getElementById('dropdown-content');
+    if (dropdown.style.display === 'block') {
+      dropdown.style.display = 'none';
+    }
+  }
+</script>

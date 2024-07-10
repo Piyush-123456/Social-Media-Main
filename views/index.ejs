@@ -1,0 +1,58 @@
+<%-include("partials/header")%>
+    <div class="d-flex" style="height: 100vh; width: 100%; background-color: red;">
+        <div class="left"
+            style="height: 100vh; width: 50%; background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; padding: 20px;">
+            <div style="text-align: center;">
+                <h2 style=" color : black;font-size: 1.8rem; font-weight: bolder; font-family: gilroy;">WELCOME TO</h2>
+                <h1 style=" color : black;font-size: 4rem;  font-family: cursive; line-height: 4.5rem; color : #E72E1E">
+                    &lt;/&gt;SparkWave</h1>
+                <p style=" color : black;font-size: 1.1rem;font-family: gilroy; margin-bottom: 2rem;">Log in to get the
+                    moment updates on the things that interest you.</p>
+            </div>
+            <form action="/user/login" method="post"
+                style="width: 100%; color: black; max-width: 600px; background-color: white; padding: 20px; border-radius: 8px;font-family: gilroy; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="height: 40px;">
+                            <span class="input-group-text "><i class="fas fa-envelope" style="height: 25px;"></i></span>
+                        </div>
+                        <input placeholder="email@email.com" type="text" class="form-control" name="username">
+                    </div>
+                    <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="height: 40px;">
+                            <span class="input-group-text"><i style="height: 26px;" class="fas fa-lock"></i></span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="******************" name="password">
+                    </div>
+                </div>
+                <a href="/sendMail" class="text-decoration-none mb-2" style="float: right;">Forget password?</a>
+                <button type="submit" class="btn"
+                    style="width: 100%;background-color:#E72E1E; color: white;">Login</button>
+            </form>
+            <p style="color :black;font-family: gilroy; font-size: 1.01rem;margin-top: 20px;">
+                Don't have an account?
+                <a class="text-decoration-none" href="/register">
+                    Register
+                </a>
+            </p>
+        </div>
+        <div class="right"
+            style="height: 100vh; width: 50%; background-repeat: no-repeat; background-size: cover; background-image: url('https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVpbGRpbmdzfGVufDB8fDB8fHww'); position: relative;">
+            <div
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 0, 0, 0.5);">
+            </div>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 99999;">
+            <h3 style="flex-shrink: 0; text-align: center; color: white;">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, deserunt, quis cupiditate perspiciatis
+                hic iusto voluptas nulla accusantium, fugiat rerum nisi nostrum.
+            </h3>
+        </div>
+        </div>
+    </div>
+
+    <%-include("partials/footer")%>

@@ -1,0 +1,59 @@
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<div style="text-align: center;height: 300px; width: 100%; background-image:url(https://img.freepik.com/free-vector/red-geometric-background_1378-196.jpg?t=st=1720377879~exp=1720381479~hmac=9266897bae0c502435eeb64b8dc1daa1e330c3a0a21d166f737eb5c754e4fd1c&w=740);">
+    <h1 style=" color : white;font-size: 4rem;  font-family: cursive; line-height: 4.5rem; padding-top: 40px; ">
+        &lt;/&gt;SparkWave</h1>
+</div>
+
+<div style="font-family: gilroy;display: flex; gap: 10%; position: absolute;top: 52%; left: 50%; transform: translate(-50%,-50%);  margin: 0 auto; width: 80%; background-color: transparent; border-radius: 10px;  padding: 20px;">
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;padding: 20px;">
+        <img style="border-radius: 50%; height: 300px; width: 300px; object-fit: cover; cursor: pointer;" class="avatarimage" src="<%= user.avatar.url %>" />
+        <h3 style="margin-top: 20px; font-weight: bolder;">
+            <%= user.fullname %>
+        </h3>
+    </div>
+    <form style="display: none;" class="avatarform" action="/user/avatar/<%= user._id %>" method="post" enctype="multipart/form-data">
+        <input class="avatarinput" type="file" name="avatar">
+        <button type="submit">
+            Upload
+        </button>
+    </form>
+    <form action="/user/update-details/<%= user._id %>" method="post" style="display: flex; flex-direction: column; background-color: white; padding: 10px 20px; border-radius: 10px; width: 100%;margin-top: 40px;">
+        <div style="display: flex; flex-direction: column; align-items: center; width: 150px; margin-bottom: 20px;">
+            <div style="padding: 5px; width: 100%; border-radius: 5px;">
+                <h1 style="font-size: 22px; text-align: center; margin: 0; font-weight: bolder; ">
+                    Personal Info.
+                </h1>
+            </div>
+            <span style="height: 2px; width: 100%; background-color: #E72E1E;  border-radius: 5px;"></span>
+        </div>
+        
+        <label for="fullname" style="font-weight: bold; margin-bottom: 5px;">Full Name</label>
+        <input type="text" id="fullname" name="fullname" value="<%= user.fullname %>" style="padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px;">
+        
+        <label for="username" style="font-weight: bold; margin-bottom: 5px;">Username</label>
+        <input type="text" id="username" name="username" value="<%= user.username %>" style="padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px;">
+        
+        <label for="contact" style="font-weight: bold; margin-bottom: 5px;">Contact</label>
+        <input type="number" id="contact" name="contact" value="<%= user.contact %>" style="padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
+        
+        <button type="submit" style="padding: 10px; font-size: 1em; color: white; background-color: #E72E1E; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">Update</button>
+    </form>
+</div>
+
+<%- include("partials/footer") %>
+
+<script>
+    const avatarimage = document.querySelector('.avatarimage');
+    const avatarinput = document.querySelector('.avatarinput');
+    const avatarform = document.querySelector('.avatarform');
+
+    avatarimage.addEventListener('click', () => {
+        avatarinput.click();
+    });
+
+    avatarinput.addEventListener('change', () => {
+        avatarform.submit();
+    });
+</script>

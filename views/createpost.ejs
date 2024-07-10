@@ -1,0 +1,11 @@
+<%-include("partials/header")%>
+    <%-include("partials/nav")%>
+        <form action="/post/create" method="post" enctype="multipart/form-data">
+            <input type="text" placeholder="Title of the post" name="title">
+            <input type="file" name="image">
+            <button type="submit">
+                Submit
+            </button>
+        </form>
+
+        <%-include("partials/footer")%>

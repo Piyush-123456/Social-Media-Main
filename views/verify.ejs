@@ -1,0 +1,12 @@
+<%-include("partials/header") %>
+<%-include("partials/nav")%>
+
+<form action="/verify-otp/<%=id%>" method="post">
+    <input type="number" placeholder="OTP" name="otp">
+    <input type="password" placeholder="************" name="password">
+    <button type="submit">
+        Submit
+    </button>
+</form>
+
+<%-include("partials/footer")%>
