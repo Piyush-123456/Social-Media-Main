@@ -1,38 +1,92 @@
 <%- include("partials/header") %>
-<%- include("partials/nav") %>
+    <%- include("partials/nav") %>
 
-<div class="d-flex" style="height: 100vh; width: 100%;">
-    <div class="left" style="height: 100%; width: 25vw;display:flex; flex-direction: column; align-items: center; padding-top: 12px; ">
-        <div style="margin-bottom: 15px;display: flex; align-items: center; background-color: #fff; border: 1px solid #ccc; border-radius: 20px; padding: 5px 10px; width: 350px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-            <i class="ri-search-line" style="font-size: 18px; color: #aaa;"></i>
-            <input type="text" placeholder="Search your peer to chat..." style="border: none; outline: none; margin-left: 10px; flex: 1;">
-        </div>
+        <div class="d-flex" style="height: 100vh; width: 100%; overflow-y: hidden;">
+            <div class="left"
+                style="height: 100%; width: 25vw; display: flex; flex-direction: column; align-items: center; padding-top: 12px;">
+                <div
+                    style="margin-bottom: 15px; display: flex; align-items: center; background-color: #fff; border: 1px solid #ccc; border-radius: 20px; padding: 5px 10px; width: 350px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                    <i class="ri-search-line" style="font-size: 18px; color: #aaa;"></i>
+                    <input type="text" placeholder="Search your peer to chat..."
+                        style="border: none; outline: none; margin-left: 10px; flex: 1;">
+                </div>
 
-
-        <%users.forEach((singleuser)=>{%>
-            <div style="height: 70px; width: 100%;  display: flex; align-items: center; gap: 15px; padding: 0px 15px; font-family: gilroy; border: 1px solid rgb(236, 232, 232); cursor: pointer;">
-                <img style="height: 50px; width: 50px; border-radius: 50%;" src="<%= singleuser.avatar.url ? singleuser.avatar.url : 'https://th.bing.com/th/id/OIP.scExuNqSeL_zvoAQbH0gWAAAAA?w=213&h=213&c=7&r=0&o=5&dpr=1.3&pid=1.7' %>" alt="">
-
-                <h1 style="font-size: 16px; font-weight: bolder;margin-top: 8px;">
-                    <%=singleuser.fullname%>
-                </h1>
+                <% users.forEach((singleuser)=> { %>
+                    <div onclick="openChat('<%= singleuser.avatar.url %>', '<%= singleuser.fullname %>')"
+                        style="height: 70px; width: 100%; display: flex; align-items: center; gap: 15px; padding: 0px 15px; font-family: gilroy; border: 1px solid rgb(236, 232, 232); cursor: pointer;">
+                        <img style="height: 50px; width: 50px; border-radius: 50%;"
+                            src="<%= singleuser.avatar.url ? singleuser.avatar.url : 'https://th.bing.com/th/id/OIP.scExuNqSeL_zvoAQbH0gWAAAAA?w=213&h=213&c=7&r=0&o=5&dpr=1.3&pid=1.7' %>"
+                            alt="">
+                        <h1 style="font-size: 16px; font-weight: bolder; margin-top: 8px;">
+                            <%= singleuser.fullname %>
+                        </h1>
+                    </div>
+                    <% }) %>
             </div>
-        <%})%>
-    </div>
-    <div class="right" style="height: 100%; width: 75vw;   ">
-        <div style="height: 70px; width: 100%;  display: flex; align-items: center; gap: 15px; padding: 0px 15px; font-family: gilroy; background-color: #f8f5f5; border: 1px solid rgb(236, 232, 232); cursor: pointer;">
-            <img style="height: 50px; width: 50px; border-radius: 50%;" src="https://plus.unsplash.com/premium_photo-1719864932976-85716ff1f9a7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8" alt="">
-            <h1 style="font-size: 16px; font-weight: bolder;margin-top: 8px;">
-                Username
-            </h1>
+            <div class="right" style="height: 100%; width: 75vw;">
+                <div class="top"
+                    style="height: 70px; width: 100%; display: flex; align-items: center; gap: 15px; padding: 0px 15px; font-family: gilroy; background-color: #f8f5f5; border: 1px solid rgb(236, 232, 232); cursor: pointer;">
+                    <img style="height: 50px; width: 50px; border-radius: 50%;"
+                        src="https://plus.unsplash.com/premium_photo-1719864932976-85716ff1f9a7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8"
+                        alt="">
+                    <h1 style="font-size: 16px; font-weight: bolder; margin-top: 8px;">Username</h1>
+                </div>
+
+                <div style="position: relative; height: 100vh; ">
+                    <div
+                        style="background: url('https://st2.depositphotos.com/2158511/8549/v/450/depositphotos_85493452-stock-illustration-music-seamless-background.jpg'); opacity: 0.3; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </div>
+                    <div
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(246, 196, 196, 0.324);">
+                        <div class="conversationArea" style="height: 100%; padding: 1.2rem 0.7rem;">
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="inputField p-1 w-75 d-flex align-items-center justify-content-center gap-3"
+                    style="position: absolute; bottom: -55px;">
+                    <input type="text" class="form-control p-3 w-75" style="border-radius: 0.7rem;"
+                        placeholder="Enter message">
+                    <button id="sendMessage" class="btn btn-secondary p-3 rounded-circle" style="border-radius: 50%;">
+                        <i class="ri-send-plane-line"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div style="position: relative; height: 100vh;">
-            <div style="background:url('https://st2.depositphotos.com/2158511/8549/v/450/depositphotos_85493452-stock-illustration-music-seamless-background.jpg');opacity: 0.3; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(246, 196, 196, 0.324);"></div>
-            <h1 style="position: relative; z-index: 1;">lldkj</h1>
-        </div>
-    </div>
-</div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+            const loggedInUsername = "<%= user.username %>";
+            socket.emit("join", loggedInUsername);
 
-<%- include("partials/footer") %>
+            function openChat(userImage, username) {
+                document.querySelector('.right .top img').src = userImage;
+                document.querySelector('.right .top h1').innerText = username;
+            }
+
+            function appendOutgoingMessage(message) {
+                const template = `
+      <div class="message ml-auto  p-2 rounded" style="margin-left: auto; background-color: #CECECE; width: fit-content; padding: 0.5rem; border-radius: 0.25rem; color:black;">
+        <p class="mb-0">${message}</p>
+      </div>
+    `;
+                document.querySelector('.conversationArea').innerHTML += template;
+            }
+            function appendIncomingMessage(message) {
+                const template = `
+     <div class="message bg-secondary  p-2 ps-3 pe-3 rounded" style="background-color: #FA8789; width: fit-content; padding: 0.5rem; border-radius: 0.25rem;">
+                                <p class="mb-0 text-white">${message}</p>
+                              </div>`;
+                document.querySelector('.conversationArea').innerHTML += template;
+            }
+
+            document.querySelector('#sendMessage').addEventListener('click', () => {
+                const message = document.querySelector('.inputField input').value;
+                appendOutgoingMessage(message);
+            });
+        </script>
+
+        <%- include("partials/footer") %>

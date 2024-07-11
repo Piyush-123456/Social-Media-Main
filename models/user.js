@@ -16,7 +16,8 @@ const userSchema = mongoose.Schema({
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FriendRequest' }]
+    friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    socketId : String
 })
 
 userSchema.plugin(plm);

@@ -6,8 +6,6 @@ const LocalStartegy = require("passport-local");
 const UserCollection = require("../models/user");
 const postCollection = require("../models/post")
 const { sendMail } = require("../utils/nodemailer");
-const userCollection = require('../models/user');
-const FriendRequest = require('../models/FriendRequest');
 
 passport.use(new LocalStartegy(UserCollection.authenticate()));
 
@@ -94,7 +92,7 @@ router.get("/verify-otp/:id", (req, res, next) => {
 
 router.post("/verify-otp/:id", async (req, res, next) => {
   try {
-    const user = await userCollection.findById(req.params.id);
+    const user = await UserCollectioner.findById(req.params.id);
     if (!user) {
       return res.send("User doesn't exist!");
     }
@@ -114,7 +112,8 @@ router.post("/verify-otp/:id", async (req, res, next) => {
 
 router.get("/friends", async (req, res) => {
   try {
-    const users = await UserCollection.find();
+    const users = await UserCollection.find().populate("friends").exec();
+    // console.log(users);
     res.render("friends", { users, user: req.user });
   }
   catch (err) {
@@ -122,71 +121,80 @@ router.get("/friends", async (req, res) => {
   }
 })
 
+
+
 router.post('/friend-request/:recipientId', async (req, res) => {
   const { recipientId } = req.params;
-  const requesterId = req.body.requesterId;
+  const requesterId = req.user._id;
 
   try {
-    const recipient = await UserCollection.findById(req.params.recipientId);
+    if (!requesterId || !recipientId) {
+      return res.status(400).json({ message: 'Requester ID and recipient ID are required' });
+    }
+
+    const recipient = await UserCollection.findById(recipientId);
+    const requester = await UserCollection.findById(requesterId);
+
     if (!recipient) {
       return res.status(404).json({ message: 'Recipient not found' });
     }
+    if (!requester) {
+      return res.status(404).json({ message: 'Requester not found' });
+    }
+    if (recipientId === requesterId) {
+      return res.status(400).json({ message: 'Cannot send a friend request to yourself' });
+    }
 
-    const friendRequest = new FriendRequest({
-      requester: requesterId,
-      recipient: recipientId
-    });
+    if (!recipient.friendRequests.includes(requesterId)) {
+      recipient.friendRequests.push(requesterId);
+      await recipient.save();
+    }
 
-    await friendRequest.save();
-    recipient.friendRequests.push(friendRequest);
-    await recipient.save();
-    res.redirect('/user/profile');
+    res.status(200).json({ message: 'Friend request sent' });
+
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error });
   }
-});
+})
 
 // Accept Friend Request
 router.post('/friend-request/:requestId/accept', async (req, res) => {
   const { requestId } = req.params;
+  const userId = req.user._id;
 
   try {
-    const friendRequest = await FriendRequest.findById(requestId).populate('requester recipient');
-    if (!friendRequest) {
-      return res.status(404).json({ message: 'Friend request not found' });
+    const requester = await UserCollection.findById(requestId);
+
+    if (!requester) {
+      return res.status(404).json({ message: 'Requester not found' });
     }
+    req.user.friends.push(requestId);
+    req.user.friendRequests = req.user.friendRequests.filter(id => id.toString() !== requestId);
+    await req.user.save();
 
-    friendRequest.status = 'accepted';
-    await friendRequest.save();
-
-    const { requester, recipient } = friendRequest;
-
-    requester.friends.push(recipient);
-    recipient.friends.push(requester);
-
+    requester.friends.push(userId);
     await requester.save();
-    await recipient.save();
 
-    res.redirect('/user/profile');
+    res.status(200).json({ message: 'Friend request accepted' });
+
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error });
   }
 });
 
-// Decline Friend Request
+// // Decline Friend Request
 router.post('/friend-request/:requestId/decline', async (req, res) => {
   const { requestId } = req.params;
+  const userId = req.user._id;
 
   try {
-    const friendRequest = await FriendRequest.findById(requestId).populate('requester recipient');
-    if (!friendRequest) {
-      return res.status(404).json({ message: 'Friend request not found' });
+    const requester = await UserCollection.findById(requestId);
+    if (!requester) {
+      return res.status(404).json({ message: 'Requester not found' });
     }
-
-    friendRequest.status = 'declined';
-    await friendRequest.save();
-
-    res.redirect('/user/profile');
+    req.user.friendRequests = req.user.friendRequests.filter(id => id.toString() !== requestId);
+    await user.save();
+    res.redirect("/user/friends");
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error });
   }
@@ -194,11 +202,11 @@ router.post('/friend-request/:requestId/decline', async (req, res) => {
 
 
 router.get("/chat", async (req, res, next) => {
-  try{
-    const users = await userCollection.find();
+  try {
+    const users = await UserCollection.find();
     res.render("chat", { user: req.user, users });
   }
-  catch(err){
+  catch (err) {
     console.log(err.message);
   }
 })

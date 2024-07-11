@@ -1,12 +1,14 @@
 <%- include("partials/header") %>
   <%- include("partials/nav") %>
 
-    <h1>Friend Request System</h1>
 
-    <h2>Users</h2>
-    <ul>
+    <div style="padding: 20px 20px;">
+
+    
+    <h2 style="font-family: gilroy; font-size: 22px; font-weight: bolder;">Make Your Friends...</h2>
+    <div style="display: flex; gap: 40px;">
       <% users.forEach(singleuser => { %>
-        <li>
+        <div style="height: 250px; width: 250px; background-color: rebeccapurple;">
           <%= singleuser.username %>
           <% if (singleuser._id != user._id) { %> <!-- Corrected comparison with .toString() -->
             <form action="/user/friend-request/<%= singleuser._id %>" method="POST"> <!-- Corrected form action -->
@@ -14,15 +16,16 @@
               <button type="submit">Add Friend</button>
             </form>
           <% } %>
-        </li>
+        </div>
       <% }); %>
-    </ul>
+    </div>
     
     <h2>Friend Requests</h2>
+    <%=JSON.stringify( user.friends)%>
     <ul>
             <% user.friendRequests.forEach(request=> { %>
               <li>
-                <!-- Friend request from  request.requester._id -->
+                Friend request from <%= request.fullname%>
               
                   <form action="/user/friend-request/<%= request._id %>/accept" method="POST" style="display:inline;">
                     <button type="submit">Accept</button>
@@ -33,5 +36,6 @@
               </li>
               <% }); %>
     </ul>
+  </div>
 
     <%- include("partials/footer") %>
