@@ -25,7 +25,7 @@ exports.createpost = async (req, res, next) => {
     }
 }
 
-exports.likepost = async(req,res, next)=>{
+exports.likepost = async (req, res, next) => {
     try {
         const post = await postCollection.findById(req.params.pid);
         if (post.likes.includes(req.user._id)) {

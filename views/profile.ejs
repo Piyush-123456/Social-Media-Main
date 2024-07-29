@@ -1,36 +1,573 @@
-<%-include("partials/header")%>
-<%-include("partials/nav")%>
+<%- include("partials/header") %>
+    <%- include("partials/nav") %>
 
-   <div style="height: 100vh; background-color: red; display: flex;">
-    <div style="height: 100%; width: 20%;background-color: rgb(255, 255, 255);">
+        <div class="container">
+            <div class="sidebar">
+                <section>
 
-    </div>
-    <div style="height: 100%; width: 60%;background-color: rgb(216, 210, 35); padding:10px 0px ;">
-        <div style="height: 130px; width: 90%; background-color: #e0f7fa; margin: auto; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px;">
-            <div style="background-color: #8d6e63; display: flex; align-items: center; justify-content: center; gap: 15px; border-radius: 10px; padding: 10px;">
-              <img style="height: 50px; width: 50px; border-radius: 50%;" src="https://cdn.dribbble.com/userupload/4095205/file/original-51799aca09a092238d11e66c30707072.png?resize=1200x901" alt="User Image">
-              <input style="height: 80%; width: 90%; padding: 5px; border: none; border-radius: 5px; outline: none;" type="text" placeholder="Write something here...">
+                    <div class="inner-container">
+                        <div class="card">
+                            <div class="card-inner" style="--clr:#d3b19a;">
+                                <div class="box">
+                                    <div class="imgBox">
+                                        <img src="https://plus.unsplash.com/premium_photo-1673792686302-7555a74de717?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGdpcmxzfGVufDB8fDB8fHww"
+                                            alt="Trust & Co.">
+                                    </div>
+                                    <div class="icon">
+                                        <a href="#" class="iconBox text-decoration-none">
+                                            <span class="material-symbols-outlined">
+                                                <i style="font-size: 35px;" class="ri-arrow-right-up-line"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h3>Get our <br> Premium Membership</h3>
+                                <!-- <p>Fill out the form and the algorithm will offer the right team of experts</p> -->
+                                <ul>
+                                    <li style="--clr-tag:#d3b19a;" class="branding">Branding</li>
+                                    <li style="--clr-tag:#70b3b1;" class="packaging">Trust</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Repeat the card structure for additional cards -->
+                    </div>
+                </section>
             </div>
-          </div>
-         
-    </div>
-    <div style="height: 100%; width: 20%;background-color: rgb(253, 253, 253);">
 
-    </div>
-   </div>
+            <div class="main-content">
+                <form action="/post/create" method="post" enctype="multipart/form-data" class="post-form">
+                    <div class="post-input-container">
+                        <div class="post-header">
+                            <img class="user-avatar"
+                                src="<%= user.avatar.url || 'data:image/jpeg;base64,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' %>"
+                                alt="User Image">
+                            <input style="font-family: gilroy; font-size: 15px;" class="post-title" name="title"
+                                type="text" placeholder="Starts a post by Writing...">
+                        </div>
+                        <div class="post-footer">
+                            <input class="avatar-input" hidden type="file" name="image">
+                            <div class="post-content">
+                                <img class="upload-icon"
+                                    src="https://img.icons8.com/?size=100&id=53386&format=png&color=000000"
+                                    alt="Upload">
+                                <h5>
+                                    Media
+                                </h5>
+                            </div>
+
+                            <button style="background-color: #E72E1E;" class="btn  ps-3 pe-3 text-white"
+                                type="submit">Post</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="posts">
+                    <% posts.forEach(post=> { %>
+                        <div class="post-card">
+                            <div class="user-info">
+                                <img src="<%=post.user.avatar.url %>" alt="">
+                                <a class="text-decoration-none cursor-pointer text-dark"
+                                    href="/user/userprofile/<%=post.user._id%>">
+                                    <%=post.user.fullname%>
+                                </a>
+                            </div>
+                            <img class="post-image"
+                                src="<%= post.image.thumbnailUrl || 'https://th.bing.com/th/id/OIP.55ULTLoXRwDVDcEZZoORMwHaHa?w=195&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7' %>"
+                                alt="Post Image">
+
+                            <div class="user-viral">
+                                <div class="user-viral-comp">
+                                    <a class="text-decoration-none" href="/post/likes/<%=post._id%>">
+                                        <% const isLiked = post.likes && post.likes.includes(user._id.toString()); %>
+                                        <i class="ri-heart-fill"
+                                           style="font-size: 25px; color: <%= isLiked ? 'red' : 'black' %>;">
+                                        </i>
 
 
-    <!-- <div>
-       <% post.forEach((singlepost)=>{%>
-            <div>
-                <img src="<%=singlepost.image.thumbnailUrl%>" alt="">
-                <a href="/post/likes/<%=singlepost._id%>">
-                    Like 
-                    <%=singlepost.likes.length%>
-                </a>
+                                    </a>
+                                    <h5>
+                                        <%=post.likes.length%>
+                                            Likes
+                                    </h5>
+                                </div>
+                                <div class="user-viral-comp">
+                                    <a class="text-decoration-none text-dark" href="/user/Comments/<%=post._id%>">
+                                        <i style="font-size: 25px;" class="ri-chat-1-line"></i>
+                                    </a>
+
+                                    <h5>Comments</h5>
+                                </div>
+
+                            </div>
+                            <div class="post-details">
+                                <h3 style="font-size: 15px;" class="post-title">
+                                    <b>
+                                        <%=post.user.username%> :
+                                    </b>
+                                    <%= post.title %>
+                                </h3>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
             </div>
-       <% })%>
-        
-    </div> -->
 
-<%-include("partials/footer")%>
+            <div class="sidebar2">
+                <div class="sidebar2-inner">
+                    <h1 style="font-family: gilroy; font-size: 20px; font-weight: 800;text-align: center;">Today's Event
+                        🎉</h1>
+                    <hr>
+                    <% users.forEach((singleuser)=> { %>
+                        <% if (singleuser.date===userdate && singleuser.fullname !==user.fullname) { %>
+                            <div class="event">
+                                <img src="https://th.bing.com/th/id/OIP.B2jSDhREKXx_XmBwn2sydgHaHw?w=169&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                                    alt="User Image">
+                                <div class="event-details">
+                                    <span>
+                                        <%= singleuser.fullname %>
+                                    </span>
+                                </div>
+                            </div>
+                            <% } %>
+                                <% }) %>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <style>
+            .sidebar2 {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 20px;
+                /* background-color: #c12020; */
+                /* padding: 20px; */
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                /* width: 300px; */
+                width: 20%;
+                flex-shrink: 0;
+                overflow-y: auto;
+            }
+
+            .sidebar h1 {
+                font-size: 16px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .event {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+            }
+
+            .event img {
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+
+            .event-details {
+                flex: 1;
+            }
+
+            .event-details span {
+                display: block;
+                font-size: 15px;
+            }
+
+            .event-details .emoji {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: "gilroy", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                overflow-y: auto;
+            }
+
+            section {
+                padding-block: min(20vh, 2rem);
+                width: calc(min(70.5rem, 90%));
+                margin-inline: auto;
+                color: #111;
+            }
+
+            .container-inner {
+                margin-top: 5em;
+                display: grid;
+                gap: 2rem;
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 1.25rem;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                width: 15rem;
+                height: 28rem;
+            }
+
+            .card-inner {
+                position: relative;
+                height: 100%;
+                background: var(--clr);
+                border-radius: 1.25rem;
+                border-bottom-right-radius: 0;
+                /* background-color: red; */
+            }
+
+            .box {
+                width: 100%;
+                height: 100%;
+                /* background: #fff; */
+                border-radius: 1.25rem;
+                overflow: hidden;
+                background-color: red;
+            }
+
+            .imgBox {
+                position: absolute;
+                inset: 0;
+            }
+
+            .imgBox img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .icon {
+                position: absolute;
+                bottom: -0.375rem;
+                right: -0.375rem;
+                width: 6rem;
+                height: 6rem;
+                background: var(--clr);
+                border-top-left-radius: 50%;
+            }
+
+            .icon:hover .iconBox {
+                transform: scale(1.1);
+            }
+
+            .icon::before,
+            .icon::after {
+                position: absolute;
+                content: "";
+                background: transparent;
+                width: 1.25rem;
+                height: 1.25rem;
+                border-bottom-right-radius: 1.25rem;
+            }
+
+            .icon::before {
+                bottom: 0.375rem;
+                left: -1.25rem;
+                box-shadow: 0.313rem 0.313rem 0 0.313rem #fff;
+            }
+
+            .icon::after {
+                top: -1.25rem;
+                right: 0.375rem;
+                box-shadow: 0.313rem 0.313rem 0 0.313rem var(--clr);
+            }
+
+            .iconBox {
+                position: absolute;
+                inset: 0.625rem;
+                background: #282828;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s;
+            }
+
+            .iconBox span {
+                color: #fff;
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 0.938rem 0.625rem;
+            }
+
+            .content h3 {
+                text-transform: capitalize;
+                font-size: clamp(1.5rem, 1.3909rem + 0.4364vw, 1.8rem);
+            }
+
+            .content p {
+                margin: 0.625rem 0 1.25rem;
+                color: #565656;
+            }
+
+            .content ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.625rem;
+            }
+
+            .content ul li {
+                text-transform: uppercase;
+                background: var(--clr-tag);
+                color: #282828;
+                font-weight: 700;
+                font-size: 0.8rem;
+                padding: 0.375rem 0.625rem;
+                border-radius: 0.188rem;
+            }
+
+            .branding {
+                color: #d3b19a;
+            }
+
+            .packaging {
+                color: #70b3b1;
+            }
+
+            .marketing {
+                color: #d05fa2;
+            }
+
+            .post-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .post-content>img {
+                height: 28px;
+            }
+
+            .post-content>h5 {
+                font-family: gilroy;
+                font-size: 17px;
+                font-weight: bolder;
+                margin-top: 10px;
+            }
+
+            .user-viral-comp {
+                font-family: gilroy;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .user-viral-comp>h5 {
+                font-size: 17px;
+            }
+
+
+            .user-viral {
+                border-top: 1px solid rgb(213, 213, 213);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 20px;
+                gap: 40px;
+                border-bottom: 1px solid rgb(213, 213, 213);
+            }
+
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                border-bottom: 1px solid rgb(213, 213, 213);
+                padding: 10px 20px;
+                margin-bottom: 5px;
+            }
+
+            .user-info>img {
+                height: 55px;
+                width: 55px;
+                border-radius: 50%;
+            }
+
+            .user-info>h4 {
+                font-family: gilroy;
+                font-size: 18px;
+                font-weight: bolder;
+            }
+
+            .container {
+                height: 92.3vh;
+                display: flex;
+                overflow: hidden;
+            }
+
+            .sidebar {
+                flex-shrink: 0;
+                width: 23%;
+                height: 90%;
+                /* background-color: rebeccapurple; */
+            }
+
+
+            .main-content {
+                width: 60%;
+                flex-shrink: 0;
+                overflow-y: auto;
+                padding: 10px;
+            }
+
+            .main-content::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            .main-content::-webkit-scrollbar-track {
+                margin-top: 15px;
+                background: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            .main-content::-webkit-scrollbar-thumb {
+                background: #c1bebe;
+                border-radius: 10px;
+            }
+
+            .main-content::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+            .post-form {
+                margin-top: 20px;
+                margin-bottom: 30px;
+            }
+
+            .post-input-container {
+                width: 90%;
+                /* background-color: #adabab2d; */
+                margin: auto;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                height: 130px;
+                gap: 5px;
+            }
+
+            .post-header {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                border-radius: 10px;
+                padding: 10px;
+            }
+
+            .user-avatar {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
+            .post-title {
+                height: 80%;
+                font-size: 10px;
+                width: 90%;
+                padding: 5px;
+                font-family: gilroy;
+                border: none;
+                border-radius: 5px;
+                outline: none;
+            }
+
+            .post-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 20px;
+            }
+
+            .avatar-input {
+                display: none;
+
+            }
+
+            .upload-icon {
+
+                height: 32px;
+                cursor: pointer;
+            }
+
+            .btn.btn-primary {
+                background-color: #007bff;
+                border: none;
+                padding: 5px 10px;
+                color: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .posts {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .post-card {
+                width: calc(80.333% - 20px);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+
+            .post-image {
+                margin-bottom: 5px;
+                width: 100%;
+                height: auto;
+            }
+
+            .post-details {
+                padding: 15px;
+            }
+
+            .post-title {
+                font-size: 1.2em;
+                margin: 0;
+            }
+        </style>
+
+        <%- include("partials/footer") %>
+
+            <script>
+                const avatarImage = document.querySelector('.upload-icon');
+                const avatarInput = document.querySelector('.avatar-input');
+                const avatarForm = document.querySelector('.post-form');
+
+                avatarImage.addEventListener('click', () => {
+                    avatarInput.click();
+                });
+
+                avatarInput.addEventListener('change', () => {
+                    avatarForm.submit();
+                });
+
+
+            </script>

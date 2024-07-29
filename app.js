@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 const session = require("express-session");
 const passport = require("passport");
 
@@ -15,6 +16,7 @@ var postsRouter = require('./routes/post');
 
 
 var app = express();
+
 
 const UserCollection = require('./models/user')
 

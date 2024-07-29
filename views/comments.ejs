@@ -1,0 +1,207 @@
+<%- include("partials/header") %>
+    <%- include("partials/nav") %>
+
+        <div class="main-container">
+            <div class="left">
+                <div class="post-card">
+                    <div class="user-info">
+                        <img src="<%= singlepost.user.avatar.url %>" alt="User Avatar" class="user-avatar">
+                        <a style="font-family: gilroy; font-weight: 500;"
+                            class="text-decoration-none cursor-pointer text-dark user-link"
+                            href="/user/userprofile/<%= singlepost.user._id %>">
+                            <%= singlepost.user.fullname %>
+                        </a>
+                    </div>
+                    <img class="post-image" src="<%= singlepost.image.thumbnailUrl %>" alt="Post Image">
+                    <div class="user-viral">
+                        <div class="user-viral-comp">
+                            <a class="text-decoration-none" href="/post/likes/<%= singlepost._id %>">
+                                <i class="ri-heart-fill"
+                                    style="font-size: 25px; color: <%= singlepost.likes.includes(user._id) ? 'red' : 'black' %>"></i>
+                            </a>
+                            <h5>
+                                <%= singlepost.likes.length %> Likes
+                            </h5>
+                        </div>
+                        <div class="user-viral-comp">
+                            <a class="text-decoration-none text-dark" href="/user/Comments/<%= singlepost._id %>">
+                                <i style="font-size: 25px;" class="ri-chat-1-line"></i>
+                            </a>
+                            <h5>Comments</h5>
+                        </div>
+                    </div>
+                    <div class="post-details">
+                        <h3 class="post-title">
+                            <b>
+                                <%= singlepost.user.username %> :
+                            </b>
+                            <%= singlepost.title %>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <!-- Form to Add a New Comment -->
+
+                <div class="rightmain">
+                    <% singlepost.comments.forEach((comment)=> { %>
+                        <div class="com">
+                            <img src="<%= comment.userId.avatar.thumbnailUrl ? comment.userId.avatar.thumbnailUrl : 'https://th.bing.com/th/id/OIP.Ps-WjXJNyJJ8R696WKbjggHaHa?w=194&h=194&c=7&r=0&o=5&dpr=1.3&pid=1.7' %>"
+                                alt="User Avatar">
+
+                            <div style="display: flex;  flex-direction: column;margin-top: 8px;">
+                                <h1 style="font-size: 17px">
+                                    <%= comment.userId.fullname %>
+                                </h1>
+                                <h1 style="font-size: 17px">
+                                    <%= comment.content %>
+                                </h1>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <%=JSON.stringify()%>
+
+                    <form class="form" action="/post/<%= singlepost._id %>/comments" method="post">
+                        <input type="text" name="text" placeholder="Add a comment" required>
+                        <button type="submit">Submit</button>
+                    </form>
+
+
+            </div>
+        </div>
+
+        <style>
+            .form {
+                display: flex;
+                justify-content: center;
+            }
+
+            .form>input {
+                border: 1px solid rgb(223, 220, 220);
+                height: 40px;
+                width: 88%;
+            }
+
+            .form>button {
+                color: white;
+                padding: 8px 10px;
+                background-color: rgb(92, 128, 238);
+            }
+
+            .rightmain {
+                padding: 10px 10px;
+                display: flex;
+                gap: 15px;
+                flex-direction: column;
+                /* align-items: center; */
+            }
+
+            .com {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .com>img {
+                height: 45px;
+                width: 45px;
+                border-radius: 50%;
+
+            }
+
+            .main-container {
+                font-family: gilroy;
+                /* padding: 6px; */
+                margin: auto;
+                display: flex;
+                margin-top: 20px;
+                height: 85vh;
+                width: 80vw;
+                border-radius: 10px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .left {
+                height: 100%;
+                width: 50%;
+            }
+
+            .right {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+                width: 50%;
+                /* background-color: red; */
+            }
+
+            .left {
+                border-right: 1px solid #ddd;
+                /* background-color: red; */
+            }
+
+            .post-card {
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                height: 100%;
+            }
+
+            .user-info {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .user-avatar {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
+            .user-link {
+                margin-left: 15px;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .post-image {
+                width: 100%;
+                max-height: 450px;
+                object-fit: cover;
+            }
+
+            .user-viral {
+                display: flex;
+                justify-content: center;
+                gap: 50px;
+                padding: 5px;
+                border-top: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .user-viral-comp {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .user-viral-comp h5 {
+                margin-top: 5px;
+                font-size: 16px;
+            }
+
+            .post-details {
+                padding: 15px;
+            }
+
+            .post-title {
+                font-size: 16px;
+            }
+        </style>
+
+        <%- include("partials/footer") %>

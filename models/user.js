@@ -4,11 +4,14 @@ const userSchema = mongoose.Schema({
     username: String,
     password: String,
     fullname: String,
-    contact: String,
+    contact: Number,
     avatar: {
         fileId: String,
         thumbnailUrl: String,
         url: String
+    },
+    date: {
+        type: String
     },
     otp: {
         type: Number,
@@ -17,7 +20,7 @@ const userSchema = mongoose.Schema({
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    socketId : String
+    socketId: String
 })
 
 userSchema.plugin(plm);

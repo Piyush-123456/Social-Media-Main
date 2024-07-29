@@ -8,7 +8,10 @@ const postSchema = new mongoose.Schema({
         url: String
     },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    likes : [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "Comment"
+    }]
 })
 
 const postCollection = mongoose.model("Post", postSchema);

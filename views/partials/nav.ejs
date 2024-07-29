@@ -1,90 +1,178 @@
-<nav
-  style="height: 60px; width: 100%;  display: flex; align-items: center; justify-content: space-between; padding: 0 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-  <!-- <div style="display: flex; align-items: center;"></div> -->
-  <h1 style=" color : black;font-size: 1.5rem;  font-family: cursive;  color : #E72E1E">
-    &lt;/&gt;SparkWave</h1>
+<nav class="navbar">
+  <h1 class="logo">&lt;/&gt;SparkWave</h1>
 
   <% if (user) { %>
-    <div style="display: flex; align-items: center; justify-content: center; flex: 1; gap: 20px;">
-      <form
-        style="display: flex; align-items: center; justify-content: center; width: 100%; padding:0; width:fit-content">
-        <input type="text" placeholder="Search..."
-          style="width: 300px; height: 40px; padding: 0 10px; border: 1px solid #ccc; border-radius: 20px 0 0 20px; outline: none; font-size: 16px;">
-        <button
-          style="height: 40px; padding: 0 20px; background-color: #E72E1E; border: none; border-radius: 0 20px 20px 0; color: white; font-size: 16px; cursor: pointer; transition: background-color 0.3s;"
-          onmouseover="this.style.backgroundColor='#E72E1E'" onmouseout="this.style.backgroundColor='#E72E1E'">
-          Search
-        </button>
+    <div class="nav-items">
+      <form action="/user/search" method="post" class="search-form">
+        <input name="search" type="text" placeholder="Search..." class="search-input">
+        <button type="submit" class="search-button">Search</button>
       </form>
-      <a href="/user/profile"
-        style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
-        onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
-        <i class="ri-home-line" style="font-size: 25px;"></i> Home
+      <a href="/user/profile" class="nav-link">
+        <i class="ri-home-line"></i> Social Feeds
       </a>
-
-      <!-- <a href="/post/create" style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;" onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
-          Create Post
-        </a> -->
-
-      <a href="/user/friends"
-        style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
-        onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
-        <i class="ri-group-line" style="font-size: 20px;"></i>
-        Explore Community
+      <a href="/user/friends" class="nav-link">
+        <i class="ri-group-line"></i> Explore Community
       </a>
-      <a href="/user/chat"
-        style="text-decoration: none; color: black; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
-        onmouseover="this.style.color='#E72E1E'" onmouseout="this.style.color='black'">
-        <i class="ri-chat-3-line" style="font-size: 20px;" ></i>
-        Chats
+      <a href="/user/chat" class="nav-link">
+        <i class="ri-chat-3-line"></i> Chats
       </a>
     </div>
 
-    <div></div>
+    <div class="user-menu">
+      <a href="#" class="dropdown-toggle" onclick="toggleDropdown(event)">
+        <img class="nav-avatar" src="<%= user.avatar.thumbnailUrl ? user.avatar.thumbnailUrl : 'https://th.bing.com/th/id/OIP.Ps-WjXJNyJJ8R696WKbjggHaHa?w=194&h=194&c=7&r=0&o=5&dpr=1.3&pid=1.7' %>" alt="User Avatar">
 
-    <div style="position: relative; display: inline-block; margin-left: auto;">
-      <a href="#" style="text-decoration: none; color: black; display: flex; align-items: center;"
-        onclick="toggleDropdown(event)" class="dropdown-toggle">
-        <img src="<%= user.avatar.thumbnailUrl %>" alt="User Avatar"
-          style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-        <span style="font-size: 16px;">
-          <%=user.fullname%>
+        <span class="user-name">
+          <%= user.fullname %>
         </span>
       </a>
-      <div id="dropdown-content"
-        style="display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); z-index: 1; border-radius: 5px;">
-        <a href="/user/settings"
-          style="color: black; padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s;"
-          onmouseover="this.style.backgroundColor='#e0e0e0'"
-          onmouseout="this.style.backgroundColor='#f9f9f9'">Profile</a>
-        <a href="#"
-          style="color: black; padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s;"
-          onmouseover="this.style.backgroundColor='#e0e0e0'"
-          onmouseout="this.style.backgroundColor='#f9f9f9'">Settings</a>
-        <a href="/user/logout"
-          style="color: black; padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s;"
-          onmouseover="this.style.backgroundColor='#e0e0e0'"
-          onmouseout="this.style.backgroundColor='#f9f9f9'">Logout</a>
+      <div id="dropdown-content" class="dropdown-content">
+        <a href="/user/settings" class="dropdown-item">Profile</a>
+        <a href="#" class="dropdown-item">Settings</a>
+        <a href="/user/logout" class="dropdown-item">Logout</a>
       </div>
     </div>
     <% } else { %>
-      <a href="/" style="text-decoration: none; color: white; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
-        onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">
-        Home
-      </a>
-
-      <a href="/login"
-        style="text-decoration: none; color: white; margin: 0 15px; font-size: 16px; transition: color 0.3s;"
-        onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">
-        Login
-      </a>
+      <a href="/" class="nav-link">Home</a>
+      <a href="/login" class="nav-link">Login</a>
       <% } %>
 </nav>
+
+<style>
+  /* Navbar styling */
+  .navbar {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* background-color: #E72E1E; */
+  }
+
+  .logo {
+    color: #E72E1E;
+    font-size: 1.5rem;
+    font-family: cursive;
+  }
+
+  .nav-items {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* background-color: red; */
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0;
+  }
+
+  .search-input {
+    width: 300px;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    font-size: 16px;
+  }
+
+  .search-button {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #E72E1E;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .search-button:hover {
+    background-color: #C72E1E;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: black;
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+
+  .nav-link:hover {
+    color: #E72E1E;
+  }
+
+  .user-menu {
+    display: flex;
+    /* margin-left: auto; */
+  }
+
+  .user-menu>a {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .user-name {
+    font-size: 16px;
+    color: black;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 5px;
+    padding: 0px 6px;
+    /* background-color: red; */
+    text-decoration: none;
+  }
+  .dropdown-toggle>span{
+    /* margin-bottom: px; */
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 1.5%;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 5px;
+  }
+
+  .dropdown-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+  }
+
+  .dropdown-item:hover {
+    background-color: #e0e0e0;
+  }
+</style>
 
 <script>
   function toggleDropdown(event) {
     event.preventDefault();
-    event.stopPropagation(); // Prevent event from bubbling up to window
+    event.stopPropagation();
     var dropdown = document.getElementById('dropdown-content');
     if (dropdown.style.display === 'none' || dropdown.style.display === '') {
       dropdown.style.display = 'block';
@@ -96,8 +184,9 @@
   // Close the dropdown if the user clicks outside of it
   window.onclick = function (event) {
     var dropdown = document.getElementById('dropdown-content');
-    if (dropdown.style.display === 'block') {
+    if (dropdown.style.display === 'block' && !event.target.matches('.dropdown-toggle')) {
       dropdown.style.display = 'none';
     }
   }
+
 </script>

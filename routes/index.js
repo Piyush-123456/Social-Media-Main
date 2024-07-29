@@ -4,6 +4,8 @@ const postCollection = require("../models/post")
 var router = express.Router();
 const { sendMail } = require("../utils/nodemailer")
 
+var app =express();
+
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   const post = await postCollection.find();
